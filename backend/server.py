@@ -14,13 +14,29 @@ load_dotenv()
 
 app = FastAPI(title="My Rail Helper API Proxy", description="API backend for My Rail Helper Indian Railway Web App")
 
-# Enable CORS for React frontend (Vite dev server and production)
+# Configurable CORS origins for production (Vercel) and local development
+allowed_origins_env = os.getenv("ALLOWED_ORIGINS", "")
+custom_origins = [orig.strip() for orig in allowed_origins_env.split(",") if orig.strip()]
+
+default_origins = [
+    "https://rail-helper.vercel.app",
+    "http://localhost:5173",
+    "http://127.0.0.1:5173",
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+]
+
+allowed_origins = list(dict.fromkeys(default_origins + custom_origins))
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=allowed_origins if allowed_origins_env != "*" else ["*"],
+    allow_origin_regex=r"^https:\/\/.*\.vercel\.app$" if allowed_origins_env != "*" else None,
     allow_credentials=True,
-    allow_methods=["*"],
+    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD"],
     allow_headers=["*"],
+    expose_headers=["*"],
+    max_age=3600,
 )
 
 BASE_URL = os.getenv("RAILRADAR_BASE_URL", "https://api.railradar.in/v1")
