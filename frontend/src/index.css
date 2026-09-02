@@ -1,0 +1,84 @@
+@import "tailwindcss";
+
+@theme {
+  --color-rail-50: #f0f7ff;
+  --color-rail-100: #e0effe;
+  --color-rail-200: #bae0fd;
+  --color-rail-300: #7cc7fb;
+  --color-rail-400: #36abf7;
+  --color-rail-500: #0c8fe9;
+  --color-rail-600: #0270c7;
+  --color-rail-700: #0359a1;
+  --color-rail-800: #074b85;
+  --color-rail-900: #0c3f6e;
+  --color-rail-950: #082849;
+
+  --color-irctc-blue: #0B3B60;
+  --color-irctc-orange: #FF7722;
+  --color-irctc-gold: #F59E0B;
+  --color-irctc-dark: #0a101d;
+  --color-irctc-card: #111928;
+  --color-irctc-border: #1f2a3e;
+
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Outfit', sans-serif;
+}
+
+/* Glassmorphism and modern UI effects */
+.glass-panel {
+  background: rgba(17, 25, 40, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-card {
+  background: rgba(22, 33, 54, 0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.glass-card:hover {
+  border-color: rgba(255, 119, 34, 0.3);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+}
+
+.glow-orange {
+  box-shadow: 0 0 20px rgba(255, 119, 34, 0.25);
+}
+
+.glow-blue {
+  box-shadow: 0 0 20px rgba(12, 143, 233, 0.25);
+}
+
+.glow-green {
+  box-shadow: 0 0 20px rgba(16, 185, 129, 0.25);
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0b1120;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1e293b;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #334155;
+}

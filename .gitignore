@@ -1,0 +1,30 @@
+# Python virtual environment
+.venv/
+env/
+venv/
+ENV/
+
+# Python cache & bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environment variables & secrets
+.env
+.env.*
+*.env
+backend/.env
+frontend/.env
+!.env.example
+!backend/.env.example
+!frontend/.env.example
+
+# IDE / Editor config
+.idea/
+.vscode/
+
+# Frontend builds and dependencies
+frontend/node_modules/
+frontend/dist/
+frontend/dist-ssr/
+*.log
