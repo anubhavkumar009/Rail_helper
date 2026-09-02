@@ -382,9 +382,6 @@ export default function SeatAvailability({ initialTrainNumber, initialSource, in
               Select train number, route, travel date, class (1A, 2A, 3A, 3E, CC, SL) and quota, then click <strong className="text-orange-400">"Check Availability"</strong> to view multi-day confirmation statuses.
             </p>
           </div>
-          <div className="flex items-center justify-center space-x-2 text-[11px] text-slate-500">
-            <span>• No API calls are consumed until you click "Check Availability"</span>
-          </div>
         </div>
       )}
     </div>

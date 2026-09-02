@@ -321,9 +321,6 @@ export default function TrainsBetween({ onCheckLiveStatus, onCheckSeats, initial
               Select origin and destination stations above and click <strong className="text-orange-400">"Find Trains"</strong> to view direct trains, departure timings, and running days.
             </p>
           </div>
-          <div className="flex items-center justify-center space-x-2 text-[11px] text-slate-500">
-            <span>• No API calls are consumed until you click "Find Trains"</span>
-          </div>
         </div>
       )}
     </div>

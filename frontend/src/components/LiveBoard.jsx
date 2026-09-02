@@ -319,9 +319,6 @@ export default function LiveBoard({ initialStationCode, onCheckLiveStatus }) {
               Select a station and time window above, then click <strong className="text-orange-400">"View Live Board"</strong> to display the real-time digital LED board with platform numbers and delay status.
             </p>
           </div>
-          <div className="flex items-center justify-center space-x-2 text-[11px] text-slate-500">
-            <span>• No API calls are consumed until you click "View Live Board"</span>
-          </div>
         </div>
       )}
     </div>

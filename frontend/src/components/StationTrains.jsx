@@ -253,9 +253,6 @@ export default function StationTrains({ initialStationCode, onCheckLiveStatus })
               Select or type a railway station code/name above and click <strong className="text-orange-400">"Get Trains"</strong> to view all passing, originating, and terminating express and passenger trains.
             </p>
           </div>
-          <div className="flex items-center justify-center space-x-2 text-[11px] text-slate-500">
-            <span>• No API calls are consumed until you click "Get Trains"</span>
-          </div>
         </div>
       )}
     </div>

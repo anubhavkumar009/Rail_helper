@@ -358,9 +358,6 @@ export default function LiveTrainStatus({ onSelectSchedule, initialTrainNumber }
               Select or type a 5-digit Indian Railways train number above and click <strong className="text-orange-400">"Track Train"</strong> to fetch real-time location, delay, and upcoming halt timings.
             </p>
           </div>
-          <div className="flex items-center justify-center space-x-2 text-[11px] text-slate-500">
-            <span>• No API calls are consumed until you click "Track Train"</span>
-          </div>
         </div>
       )}
     </div>
