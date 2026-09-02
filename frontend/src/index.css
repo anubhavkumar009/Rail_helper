@@ -82,3 +82,16 @@ h1, h2, h3, h4, h5, h6 {
 ::-webkit-scrollbar-thumb:hover {
   background: #334155;
 }
+
+/* Responsive display utilities */
+@media (max-width: 639px) {
+  .hide-on-mobile {
+    display: none !important;
+  }
+}
+
+@media (min-width: 640px) {
+  .hide-on-mobile {
+    display: inline-block !important;
+  }
+}

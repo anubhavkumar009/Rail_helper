@@ -64,23 +64,17 @@ export default function Navbar({ activeTab, setActiveTab, onOpenEmergency }) {
               </span>
             </div>
 
-            {/* Live Now / API Connection Indicator */}
+            {/* Live Now Indicator */}
             <div 
-              className="flex items-center space-x-1.5 sm:space-x-2 p-2 sm:px-3 sm:py-1.5 rounded-lg bg-slate-900/80 border border-slate-800 text-xs shadow-inner"
-              title={apiStatus.online ? "Connected to Live Railway Backend (Live Now)" : "Connecting to Backend..."}
+              className="flex items-center space-x-2 px-2.5 py-1.5 sm:px-3 sm:py-1.5 rounded-lg bg-slate-900/90 border border-slate-800 text-xs shadow-inner"
+              title="Live Indian Railway Information Service Active"
             >
               <span className="relative flex h-2 w-2 flex-shrink-0">
-                {apiStatus.online ? (
-                  <>
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500 shadow-sm shadow-emerald-500/50"></span>
-                  </>
-                ) : (
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-rose-500 shadow-sm shadow-rose-500/50"></span>
-                )}
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500 shadow-sm shadow-emerald-500/50"></span>
               </span>
-              <span className={`hidden sm:inline font-semibold tracking-wide ${apiStatus.online ? 'text-emerald-400' : 'text-slate-400'}`}>
-                {apiStatus.online ? 'Live Now' : 'Connecting...'}
+              <span className="hide-on-mobile font-semibold tracking-wide text-emerald-400 whitespace-nowrap text-xs">
+                Live Now
               </span>
             </div>
 
