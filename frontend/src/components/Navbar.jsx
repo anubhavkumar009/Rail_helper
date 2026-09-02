@@ -64,11 +64,23 @@ export default function Navbar({ activeTab, setActiveTab, onOpenEmergency }) {
               </span>
             </div>
 
-            {/* API Connection Indicator */}
-            <div className="flex items-center space-x-2 px-3 py-1.5 rounded-lg bg-slate-900/80 border border-slate-800 text-xs">
-              <span className={`w-2 h-2 rounded-full ${apiStatus.online ? 'bg-emerald-500 shadow-sm shadow-emerald-500/50 animate-ping' : 'bg-rose-500'}`} />
-              <span className="text-slate-300 hidden sm:inline">
-                {apiStatus.online ? (apiStatus.hasKey ? 'Live API Active' : 'API Active (Demo Enabled)') : 'Offline'}
+            {/* Live Now / API Connection Indicator */}
+            <div 
+              className="flex items-center space-x-2 px-3 py-1.5 rounded-lg bg-slate-900/80 border border-slate-800 text-xs shadow-inner"
+              title={apiStatus.online ? "Connected to Live Railway Backend" : "Connecting to Backend..."}
+            >
+              <span className="relative flex h-2 w-2 flex-shrink-0">
+                {apiStatus.online ? (
+                  <>
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500 shadow-sm shadow-emerald-500/50"></span>
+                  </>
+                ) : (
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-rose-500 shadow-sm shadow-rose-500/50"></span>
+                )}
+              </span>
+              <span className={`font-semibold tracking-wide ${apiStatus.online ? 'text-emerald-400' : 'text-slate-400'}`}>
+                {apiStatus.online ? 'Live Now' : 'Connecting...'}
               </span>
             </div>
 
