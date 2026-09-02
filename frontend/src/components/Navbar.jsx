@@ -54,19 +54,19 @@ export default function Navbar({ activeTab, setActiveTab, onOpenEmergency }) {
           </div>
 
           {/* Right side stats & live clock */}
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-2 sm:space-x-3">
             {/* Live IST Clock */}
-            <div className="hidden md:flex items-center space-x-2 px-3 py-1.5 rounded-lg bg-slate-900/80 border border-slate-800 text-xs font-mono text-slate-300">
+            <div className="hidden sm:flex items-center space-x-1.5 px-2.5 py-1.5 rounded-lg bg-slate-900/80 border border-slate-800 text-xs font-mono text-slate-300">
               <Clock className="w-3.5 h-3.5 text-orange-400 animate-pulse" />
               <span>
                 {time.toLocaleTimeString('en-IN', { timeZone: 'Asia/Kolkata', hour12: false })}{' '}
-                <span className="text-slate-500">IST</span>
+                <span className="text-slate-500 text-[10px]">IST</span>
               </span>
             </div>
 
             {/* Live Now Indicator */}
             <div 
-              className="flex items-center space-x-2 px-2.5 py-1.5 sm:px-3 sm:py-1.5 rounded-lg bg-slate-900/90 border border-slate-800 text-xs shadow-inner"
+              className="flex items-center space-x-1.5 sm:space-x-2 px-2.5 py-1.5 rounded-lg bg-slate-900/90 border border-slate-800 text-xs shadow-inner"
               title="Live Indian Railway Information Service Active"
             >
               <span className="relative flex h-2 w-2 flex-shrink-0">
@@ -81,7 +81,7 @@ export default function Navbar({ activeTab, setActiveTab, onOpenEmergency }) {
             {/* Helpline Badge */}
             <button
               onClick={() => onOpenEmergency ? onOpenEmergency('madad') : window.location.href = 'tel:139'}
-              className="hidden lg:flex items-center space-x-1.5 px-3 py-1.5 rounded-lg bg-orange-500/10 hover:bg-orange-500/20 text-orange-400 border border-orange-500/30 text-xs font-semibold transition hover:scale-105 active:scale-95 cursor-pointer"
+              className="hidden md:flex items-center space-x-1.5 px-2.5 py-1.5 rounded-lg bg-orange-500/10 hover:bg-orange-500/20 text-orange-400 border border-orange-500/30 text-xs font-semibold transition hover:scale-105 active:scale-95 cursor-pointer whitespace-nowrap"
               title="Rail Madad 24x7 Helpline"
             >
               <ShieldAlert className="w-3.5 h-3.5 text-orange-400" />
