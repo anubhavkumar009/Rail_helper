@@ -66,8 +66,8 @@ export default function Navbar({ activeTab, setActiveTab, onOpenEmergency }) {
 
             {/* Live Now / API Connection Indicator */}
             <div 
-              className="flex items-center space-x-2 px-3 py-1.5 rounded-lg bg-slate-900/80 border border-slate-800 text-xs shadow-inner"
-              title={apiStatus.online ? "Connected to Live Railway Backend" : "Connecting to Backend..."}
+              className="flex items-center space-x-1.5 sm:space-x-2 p-2 sm:px-3 sm:py-1.5 rounded-lg bg-slate-900/80 border border-slate-800 text-xs shadow-inner"
+              title={apiStatus.online ? "Connected to Live Railway Backend (Live Now)" : "Connecting to Backend..."}
             >
               <span className="relative flex h-2 w-2 flex-shrink-0">
                 {apiStatus.online ? (
@@ -79,7 +79,7 @@ export default function Navbar({ activeTab, setActiveTab, onOpenEmergency }) {
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-rose-500 shadow-sm shadow-rose-500/50"></span>
                 )}
               </span>
-              <span className={`font-semibold tracking-wide ${apiStatus.online ? 'text-emerald-400' : 'text-slate-400'}`}>
+              <span className={`hidden sm:inline font-semibold tracking-wide ${apiStatus.online ? 'text-emerald-400' : 'text-slate-400'}`}>
                 {apiStatus.online ? 'Live Now' : 'Connecting...'}
               </span>
             </div>
