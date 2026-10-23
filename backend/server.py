@@ -82,17 +82,21 @@ def make_railradar_request(endpoint: str, params: dict = None, cache_ttl: int = 
             if res_json:
                 set_in_cache(cache_key, res_json, cache_ttl)
             return res_json
-        elif response.status_code == 401 or response.status_code == 403:
-            return {"error": "Invalid or missing RAILRADAR_API_KEY", "status_code": response.status_code}
-        else:
-            err_detail = "Data not available"
-            if res_json and isinstance(res_json, dict):
-                err = res_json.get("error")
-                if isinstance(err, dict):
-                    err_detail = err.get("message", "Data not available")
-                elif err:
-                    err_detail = str(err)
-            return {"error": err_detail, "status_code": response.status_code}
+
+        err_detail = "Data not available"
+        err_code = None
+        if res_json and isinstance(res_json, dict):
+            err = res_json.get("error")
+            if isinstance(err, dict):
+                err_detail = err.get("message", "Data not available")
+                err_code = err.get("code")
+            elif err:
+                err_detail = str(err)
+        elif response.status_code == 401:
+            err_detail = "Invalid or missing RAILRADAR_API_KEY"
+            err_code = "UNAUTHORIZED"
+
+        return {"error": err_detail, "error_code": err_code, "status_code": response.status_code}
     except requests.exceptions.RequestException as e:
         return {"error": str(e), "status_code": 500}
 
@@ -403,14 +407,35 @@ def get_seat_availability(
     if res and "data" in res and res.get("success") is not False:
         return res
     
-    # If API returned an error (e.g. Class does not exist on this train), surface it cleanly
+    # Check if RailRadar returned an error
     if res and "error" in res:
-        err_msg = res["error"]
-        if API_KEY:
+        err_code = res.get("error_code")
+        err_msg = res.get("error", "")
+
+        # RailRadar now places live seat availability behind paid Developer / Growth subscription plans
+        # Fallback gracefully to dynamic simulated forecast so the user's web app stays functional
+        if (
+            err_code == "PLAN_UPGRADE_REQUIRED"
+            or "PLAN_UPGRADE_REQUIRED" in str(err_msg)
+            or "subscription" in str(err_msg).lower()
+            or res.get("status_code") == 403
+        ):
+            fallback = generate_mock_seats(journeyDate)
+            fallback["notice"] = "Live IRCTC Seat Availability now requires a RailRadar Developer/Growth subscription. Showing simulated availability forecast."
+            fallback["isSimulated"] = True
+            return fallback
+
+        # Specific input error like travel class does not exist on this train
+        if "Class does not exist" in str(err_msg):
+            return {"error": err_msg, "data": None}
+
+        if API_KEY and err_code not in ("UNAUTHORIZED", "PLAN_UPGRADE_REQUIRED"):
             return {"error": err_msg, "data": None}
             
     # If no API key or offline testing, generate dynamic mock dates from the user's journeyDate
-    return generate_mock_seats(journeyDate)
+    fallback = generate_mock_seats(journeyDate)
+    fallback["isSimulated"] = True
+    return fallback
 
 
 @app.get("/api/stations/search")

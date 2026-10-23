@@ -317,9 +317,9 @@ class IRCTC:
 
         data=self.request(url,params)
 
-        if data:
+        if data and isinstance(data, dict) and 'data' in data:
             data=data['data']
-            calendar=data.get('calendar',[])
+            calendar=data.get('calendar',[]) if isinstance(data, dict) else []
 
             for d in calendar:
 
@@ -338,6 +338,9 @@ class IRCTC:
                 elif status=="WAITLIST" or status=="RAC":
                     listnumber=d.get('waitlistNumber','N/A')
                     print("Waitlist Number:",listnumber)
+        else:
+            print("\n[NOTE] Live IRCTC Seat Availability now requires a paid Developer/Growth plan on RailRadar.")
+            print("If you are on a free tier API key, live seat queries are restricted by RailRadar.")
 
 
     # --------------------------------

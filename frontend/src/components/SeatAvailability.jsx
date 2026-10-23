@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Sparkles, Calendar, Train, MapPin, CheckCircle2, AlertCircle, Clock, AlertTriangle, RefreshCw } from 'lucide-react';
+import { Sparkles, Calendar, Train, MapPin, CheckCircle2, AlertCircle, Clock, AlertTriangle, RefreshCw, Info } from 'lucide-react';
 import { api, TRAVEL_CLASSES, QUOTAS } from '../api';
 import { cacheUtil } from '../utils/cache';
 import StationAutocomplete from './StationAutocomplete';
@@ -30,6 +30,7 @@ export default function SeatAvailability({ initialTrainNumber, initialSource, in
 
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState(cachedSeats?.data || null);
+  const [notice, setNotice] = useState(cachedSeats?.notice || '');
   const [error, setError] = useState('');
 
   useEffect(() => {
@@ -47,6 +48,7 @@ export default function SeatAvailability({ initialTrainNumber, initialSource, in
       return;
     }
     setError('');
+    setNotice('');
     setLoading(true);
     try {
       const res = await api.getSeatAvailability(
@@ -60,6 +62,7 @@ export default function SeatAvailability({ initialTrainNumber, initialSource, in
       if (res && res.data && Array.isArray(res.data.calendar) && res.data.calendar.length > 0) {
         setData(res.data);
         setError('');
+        setNotice(res.notice || '');
         cacheUtil.set('seats_last', {
           trainNumber: trainNumber.trim(),
           source: source.trim(),
@@ -68,9 +71,11 @@ export default function SeatAvailability({ initialTrainNumber, initialSource, in
           classCode,
           quotaCode,
           data: res.data,
+          notice: res.notice || '',
         });
       } else if (res && res.error) {
         setData(null);
+        setNotice('');
         let msg = typeof res.error === 'string' ? res.error : 'Seat data not available for this selection.';
         if (msg.includes('Class does not exist')) {
           msg += ` (Tip: Train ${trainNumber} may only have ${trainNumber === '22436' ? 'CC / EC' : 'specific classes'}. Try switching the Travel Class)`;
@@ -78,6 +83,7 @@ export default function SeatAvailability({ initialTrainNumber, initialSource, in
         setError(msg);
       } else {
         setData(null);
+        setNotice('');
         setError('No seat availability records found for the selected date and class.');
       }
     } catch (err) {
@@ -246,6 +252,19 @@ export default function SeatAvailability({ initialTrainNumber, initialSource, in
       {/* Calendar Grid View */}
       {data && (
         <div className="space-y-4">
+          {/* Plan / Forecast Notice */}
+          {notice && (
+            <div className="p-3.5 bg-amber-500/10 border border-amber-500/30 rounded-xl text-amber-300 text-xs flex flex-col sm:flex-row sm:items-center justify-between gap-2 shadow-sm">
+              <div className="flex items-center space-x-2">
+                <Info className="w-4 h-4 flex-shrink-0 text-amber-400" />
+                <span>{notice}</span>
+              </div>
+              <span className="self-start sm:self-auto text-[10px] px-2 py-0.5 rounded-md bg-amber-500/20 text-amber-200 uppercase tracking-wider font-semibold whitespace-nowrap">
+                Forecast Mode
+              </span>
+            </div>
+          )}
+
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
             <div>
               <h3 className="text-lg font-bold text-white">
